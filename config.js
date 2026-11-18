@@ -1,5 +1,5 @@
 
 window.K4N_CONFIG = {
-  SUPABASE_URL: "https://tlncfbvdyryhekymlruz.supabase.co",
+  SUPABASE_URL: "https://sb_publishable_GJKeZPPKkLWGJ6T9h85p3Q_voDgrmcC.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRsbmNmYnZkeXJ5aGVreW1scnV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ5Njk4MzYsImV4cCI6MjExMDU0NTgzNn0.40LOzANG12_HIOHRX2L5oGKJAf8rFnMYBlHkNp7i6-cC"
 };
