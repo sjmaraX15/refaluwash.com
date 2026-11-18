@@ -107,5 +107,5 @@
     if(result.error)return setMessage("save-message",result.error.message);
     setMessage("save-message","Saved successfully.",true); await loadArticles(); setTimeout(()=>showView("articles"),700);
   });
-
+})();.
   
