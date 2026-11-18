@@ -238,4 +238,58 @@
   };
 
   supabase.auth.getSession().then(async({data})=>{if(data.session)await enterApp(data.session.user);});
+    // K4N WEBSITE BUILDER
+  async function loadSiteSettings() {
+    const { data, error } = await supabase
+      .from("site_settings")
+      .select("*")
+      .eq("id", 1)
+      .maybeSingle();
+
+    if (error) {
+      setMessage("site-settings-message", error.message);
+      return;
+    }
+
+    if (data) {
+      $("site-name").value = data.site_name || "KaMoRaLe 4 Network";
+      $("site-tagline").value = data.site_tagline || "One Nation with One Connection";
+      $("site-color").value = data.site_color || "#000000";
+    }
+  }
+
+  $("save-site-settings").onclick = async () => {
+    const payload = {
+      id: 1,
+      site_name: $("site-name").value.trim(),
+      site_tagline: $("site-tagline").value.trim(),
+      site_color: $("site-color").value,
+      updated_at: new Date().toISOString()
+    };
+
+    const { error } = await supabase
+      .from("site_settings")
+      .upsert(payload);
+
+    if (error) {
+      setMessage("site-settings-message", error.message);
+    } else {
+      setMessage("site-settings-message", "Website settings saved successfully!", true);
+    }
+  };
+
+  const originalShowView = showView;
+  showView = (name) => {
+    if (name === "website-builder") {
+      document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
+      $("view-website-builder").classList.remove("hidden");
+      document.querySelectorAll("[data-view]").forEach(a =>
+        a.classList.toggle("active", a.dataset.view === name)
+      );
+      $("page-heading").textContent = "Website Builder";
+      loadSiteSettings();
+    } else {
+      originalShowView(name);
+    }
+  };
 })();
