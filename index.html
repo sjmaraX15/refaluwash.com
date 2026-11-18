@@ -28,7 +28,14 @@ document.getElementById("year").textContent=new Date().getFullYear();
  if(!c.SUPABASE_URL||c.SUPABASE_URL.includes("PASTE_")||!c.SUPABASE_ANON_KEY||c.SUPABASE_ANON_KEY.includes("PASTE_")){document.getElementById("news-grid").innerHTML='<div class="empty">K4N newsroom is being configured. Please check back soon.</div>';return;}
  const sb=window.supabase.createClient(c.SUPABASE_URL,c.SUPABASE_ANON_KEY);
  const {data,error}=await sb.from("articles").select("id,title,excerpt,category,author,image_url,content_html,featured,published_at,created_at").eq("status","published").order("published_at",{ascending:false}).limit(12);
- if(error){document.getElementById("news-grid").innerHTML='<div class="empty">News is temporarily unavailable.</div>';return;}
+if(error){
+  document.getElementById("news-grid").innerHTML =
+    '<div class="empty">Database error: ' +
+    DOMPurify.sanitize(error.message) +
+    '</div>';
+  console.error("K4N Supabase error:", error);
+  return;
+}
  const clean=s=>DOMPurify.sanitize(s||"",{USE_PROFILES:{html:true}});
  const date=s=>s?new Date(s).toLocaleDateString():"";
  const link=a=>"article.html?id="+encodeURIComponent(a.id);
