@@ -1,317 +1,41 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KaMoRaLe 4 Network | K4N</title>
-
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    color: #111;
-}
-
-header {
-    background: #000;
-    color: white;
-    padding: 25px 6%;
-    text-align: center;
-}
-
-.logo {
-    font-family: Georgia, serif;
-    font-size: 38px;
-    letter-spacing: 2px;
-    font-weight: bold;
-}
-
-.tagline {
-    font-size: 12px;
-    letter-spacing: 4px;
-    margin-top: 8px;
-}
-
-nav {
-    background: #fff;
-    border-bottom: 2px solid #000;
-    padding: 15px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-nav a {
-    color: #000;
-    text-decoration: none;
-    margin: 0 13px;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-.breaking {
-    background: #111;
-    color: white;
-    padding: 12px 6%;
-    font-size: 13px;
-}
-
-.container {
-    max-width: 1150px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-.section-title {
-    font-family: Georgia, serif;
-    font-size: 25px;
-    border-bottom: 2px solid #000;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-.featured {
-    background: #222;
-    color: white;
-    padding: 55px 30px;
-    min-height: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.featured h1 {
-    font-family: Georgia, serif;
-    font-size: 35px;
-    max-width: 650px;
-    margin-bottom: 12px;
-}
-
-.featured p {
-    color: #ddd;
-    line-height: 1.6;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.news-card {
-    background: white;
-    padding: 20px;
-    border: 1px solid #ddd;
-}
-
-.news-card img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    background: #ddd;
-    margin-bottom: 15px;
-}
-
-.category {
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: #555;
-}
-
-.news-card h3 {
-    font-family: Georgia, serif;
-    margin: 10px 0;
-    font-size: 19px;
-}
-
-.news-card p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #555;
-}
-
-.read-more {
-    display: inline-block;
-    margin-top: 15px;
-    color: black;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.states {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-}
-
-.state {
-    background: #000;
-    color: white;
-    text-align: center;
-    padding: 25px 10px;
-    font-family: Georgia, serif;
-    font-size: 20px;
-    text-decoration: none;
-}
-
-footer {
-    background: #000;
-    color: white;
-    padding: 35px 20px;
-    text-align: center;
-    margin-top: 50px;
-    line-height: 2;
-}
-
-@media(max-width: 700px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .states {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    nav a {
-        display: inline-block;
-        margin: 7px;
-    }
-
-    .logo {
-        font-size: 27px;
-    }
-
-    .featured h1 {
-        font-size: 27px;
-    }
-}
+*{box-sizing:border-box}body{margin:0;background:#f5f5f5;color:#111;font-family:Arial,sans-serif}header{background:#000;color:#fff;text-align:center;padding:25px 15px}.logo{font:bold 38px Georgia,serif;letter-spacing:2px}.tagline{font-size:11px;letter-spacing:4px;margin-top:8px}nav{background:#fff;text-align:center;padding:15px;border-bottom:2px solid #111;position:sticky;top:0;z-index:5}nav a{color:#111;text-decoration:none;font-size:13px;font-weight:bold;margin:0 12px}.breaking{background:#111;color:#fff;padding:12px max(calc((100% - 1150px)/2),20px);font-size:13px}.container{max-width:1150px;margin:30px auto;padding:0 20px}.section-title{font: bold 25px Georgia,serif;border-bottom:2px solid #111;padding-bottom:10px;margin:0 0 20px}.featured{background:#222;color:#fff;padding:45px 28px;min-height:270px;display:flex;flex-direction:column;justify-content:flex-end}.featured img{max-height:320px;object-fit:cover;width:100%;margin-bottom:18px}.featured h1{font: bold 35px Georgia,serif;margin:8px 0}.featured p{line-height:1.6;color:#ddd}.category{font-size:11px;letter-spacing:1px;font-weight:bold;color:#666}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;border:1px solid #ddd;padding:17px}.card img{width:100%;height:175px;object-fit:cover;background:#ddd}.card h3{font: bold 20px Georgia,serif;margin:9px 0}.card p{font-size:14px;line-height:1.6;color:#555}.card a{color:#111;font-weight:bold;text-decoration:none;font-size:13px}.states{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.state{background:#111;color:#fff;text-align:center;padding:24px 8px;font:20px Georgia,serif;text-decoration:none}section{margin-top:38px}footer{background:#000;color:#fff;text-align:center;padding:35px 15px;margin-top:50px;line-height:1.8}footer p{color:#ccc}.empty{background:white;padding:25px;color:#666}@media(max-width:700px){.grid{grid-template-columns:1fr}.states{grid-template-columns:repeat(2,1fr)}nav a{display:inline-block;margin:7px}.logo{font-size:27px}.featured h1{font-size:27px}}
 </style>
 </head>
-
 <body>
-
-<header>
-    <div class="logo">KaMoRaLe 4 Network</div>
-    <div class="tagline">ONE NATION WITH ONE CONNECTION</div>
-</header>
-
-<nav>
-    <a href="#home">HOME</a>
-    <a href="#latest">LATEST NEWS</a>
-    <a href="#states">FSM STATES</a>
-    <a href="#national">NATIONAL</a>
-    <a href="#about">ABOUT</a>
-    <a href="#contact">CONTACT</a>
-</nav>
-
-<div class="breaking">
-    <strong>K4N NEWS:</strong>
-    Connecting Micronesia, One Story at a Time.
-</div>
-
+<header><div class="logo">KaMoRaLe 4 Network</div><div class="tagline">ONE NATION WITH ONE CONNECTION</div></header>
+<nav><a href="#home">HOME</a><a href="#latest">LATEST NEWS</a><a href="#states">FSM STATES</a><a href="#national">NATIONAL & PACIFIC</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a></nav>
+<div class="breaking"><strong>K4N NEWS:</strong> Connecting Micronesia, One Story at a Time.</div>
 <main class="container" id="home">
-
-    <h2 class="section-title">Top Story</h2>
-
-    <section class="featured">
-        <span class="category">FEATURED NEWS</span>
-        <h1>Welcome to KaMoRaLe 4 Network</h1>
-        <p>Your connection to news, stories, events and developments
-        across Micronesia and the Pacific.</p>
-    </section>
-
-    <section id="latest" style="margin-top:40px">
-        <h2 class="section-title">Latest News</h2>
-
-        <div class="grid">
-
-            <article class="news-card">
-                <img src="https://placehold.co/600x350?text=Yap" alt="Yap news">
-                <span class="category">YAP STATE</span>
-                <h3>News from Yap</h3>
-                <p>Stay informed about the latest developments,
-                community stories and announcements from Yap.</p>
-                <a class="read-more" href="#states">Read More →</a>
-            </article>
-
-            <article class="news-card">
-                <img src="https://placehold.co/600x350?text=Chuuk" alt="Chuuk news">
-                <span class="category">CHUUK STATE</span>
-                <h3>News from Chuuk</h3>
-                <p>Discover community activities, local events
-                and important news from Chuuk.</p>
-                <a class="read-more" href="#states">Read More →</a>
-            </article>
-
-            <article class="news-card">
-                <img src="https://placehold.co/600x350?text=Pohnpei" alt="Pohnpei news">
-                <span class="category">POHNPEI STATE</span>
-                <h3>News from Pohnpei</h3>
-                <p>Follow the latest updates and stories
-                from the heart of Micronesia.</p>
-                <a class="read-more" href="#states">Read More →</a>
-            </article>
-
-        </div>
-    </section>
-
-    <section id="states" style="margin-top:40px">
-        <h2 class="section-title">Explore the Four States</h2>
-
-        <div class="states">
-            <a class="state" href="#yap">YAP</a>
-            <a class="state" href="#chuuk">CHUUK</a>
-            <a class="state" href="#pohnpei">POHNPEI</a>
-            <a class="state" href="#kosrae">KOSRAE</a>
-        </div>
-    </section>
-
-    <section id="national" style="margin-top:40px">
-        <h2 class="section-title">National & Pacific News</h2>
-        <p>Bringing you important developments from the FSM,
-        the Pacific region and around the world.</p>
-    </section>
-
-    <section id="about" style="margin-top:40px">
-        <h2 class="section-title">About K4N</h2>
-        <p>
-        KaMoRaLe 4 Network (K4N) is an independent media platform
-        dedicated to connecting communities through news,
-        information, culture and stories from Micronesia and beyond.
-        </p>
-        <br>
-        <strong>One Nation with One Connection.</strong>
-    </section>
-
-    <section id="contact" style="margin-top:40px">
-        <h2 class="section-title">Contact Us</h2>
-        <p>Have a story, announcement or community update?</p>
-        <p>Contact the K4N editorial team.</p>
-        <br>
-        <a href="mailto:your-email@example.com">Email K4N</a>
-    </section>
-
+<section style="margin-top:0"><h2 class="section-title">Top Story</h2><div id="featured" class="featured"><span class="category" style="color:#aaa">FEATURED NEWS</span><h1>Welcome to KaMoRaLe 4 Network</h1><p>Your connection to news, stories, events and developments across Micronesia and the Pacific.</p></div></section>
+<section id="latest"><h2 class="section-title">Latest News</h2><div id="news-grid" class="grid"><div class="empty">Loading latest K4N stories…</div></div></section>
+<section id="states"><h2 class="section-title">Explore the Four States</h2><div class="states"><a class="state" href="#yap">YAP</a><a class="state" href="#chuuk">CHUUK</a><a class="state" href="#pohnpei">POHNPEI</a><a class="state" href="#kosrae">KOSRAE</a></div></section>
+<section id="national"><h2 class="section-title">National & Pacific News</h2><p>Important developments from the FSM, the Pacific region and around the world.</p></section>
+<section id="about"><h2 class="section-title">About K4N</h2><p>KaMoRaLe 4 Network (K4N) is an independent media platform dedicated to connecting communities through news, information, culture and stories from Micronesia and beyond.</p><strong>One Nation with One Connection.</strong></section>
+<section id="contact"><h2 class="section-title">Contact Us</h2><p>Have a story, announcement or community update? Contact the K4N editorial team.</p><a href="mailto:your-email@example.com">Email K4N</a></section>
 </main>
-
-<footer>
-    <h2>KaMoRaLe 4 Network</h2>
-    <p>One Nation with One Connection.</p>
-    <p>© 2026 K4N. All Rights Reserved.</p>
-</footer>
-
-</body>
-</html>
+<footer><h2>KaMoRaLe 4 Network</h2><p>One Nation with One Connection.</p><small>© <span id="year"></span> K4N. All Rights Reserved.</small></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script><script src="config.js"></script>
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+(async()=>{
+ const c=window.K4N_CONFIG||{};
+ if(!c.SUPABASE_URL||c.SUPABASE_URL.includes("PASTE_")||!c.SUPABASE_ANON_KEY||c.SUPABASE_ANON_KEY.includes("PASTE_")){document.getElementById("news-grid").innerHTML='<div class="empty">K4N newsroom is being configured. Please check back soon.</div>';return;}
+ const sb=window.supabase.createClient(c.SUPABASE_URL,c.SUPABASE_ANON_KEY);
+ const {data,error}=await sb.from("articles").select("id,title,excerpt,category,author,image_url,content_html,featured,published_at,created_at").eq("status","published").order("published_at",{ascending:false}).limit(12);
+ if(error){document.getElementById("news-grid").innerHTML='<div class="empty">News is temporarily unavailable.</div>';return;}
+ const clean=s=>DOMPurify.sanitize(s||"",{USE_PROFILES:{html:true}});
+ const date=s=>s?new Date(s).toLocaleDateString():"";
+ const link=a=>"article.html?id="+encodeURIComponent(a.id);
+ const featured=(data||[]).find(a=>a.featured);
+ if(featured){document.getElementById("featured").innerHTML=`${featured.image_url?`<img src="${clean(featured.image_url)}" alt="">`:""}<span class="category" style="color:#bbb">${clean(featured.category).toUpperCase()} · FEATURED</span><h1>${clean(featured.title)}</h1><p>${clean(featured.excerpt)}</p><a style="color:white;font-weight:bold" href="${link(featured)}">Read full story →</a>`;}
+ const stories=(data||[]).filter(a=>!featured||a.id!==featured.id);
+ document.getElementById("news-grid").innerHTML=stories.length?stories.map(a=>`<article class="card">${a.image_url?`<a href="${link(a)}"><img src="${clean(a.image_url)}" alt=""></a>`:""}<span class="category">${clean(a.category).toUpperCase()} · ${date(a.published_at||a.created_at)}</span><h3>${clean(a.title)}</h3><p>${clean(a.excerpt)}</p><a href="${link(a)}">READ MORE →</a></article>`).join(""):'<div class="empty">No stories have been published yet. Please check back soon.</div>';
+})();
+</script>
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K4N Admin | Newsroom</title>
+  <link rel="stylesheet" href="admin.css">
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+</head>
+<body class="admin-body">
+  <div id="login-screen" class="login-wrap">
+    <form id="login-form" class="login-card">
+      <div class="brand-mark">K4N</div>
+      <p class="eyebrow">KAMORALE 4 NETWORK</p>
+      <h1>Newsroom Login</h1>
+      <p class="muted">Authorized administrators only.</p>
+      <label>Email address<input id="login-email" type="email" autocomplete="username" required></label>
+      <label>Password<input id="login-password" type="password" autocomplete="current-password" required></label>
+      <button class="btn btn-dark full" type="submit">Sign in</button>
+      <p id="login-message" class="message" aria-live="polite"></p>
+      <a class="back-link" href="index.html">← Back to K4N website</a>
+    </form>
+  </div>
+
+  <div id="dashboard" class="shell hidden">
+    <aside class="sidebar">
+      <a class="side-brand" href="index.html"><span>K4N</span><small>ADMIN NEWSROOM</small></a>
+      <nav>
+        <a class="active" href="#overview" data-view="overview">▦ <span>Overview</span></a>
+        <a href="#articles" data-view="articles">▤ <span>Articles</span></a>
+        <a href="#editor" data-view="editor">＋ <span>Write an article</span></a>
+        <a href="index.html" target="_blank">↗ <span>View public website</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <small>ONE NATION WITH ONE CONNECTION</small>
+        <button id="logout-btn" class="btn btn-outline full">Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow">EDITORIAL MANAGEMENT</p><h1 id="page-heading">Dashboard overview</h1></div>
+        <div class="user-area"><span id="user-email"></span><span class="user-dot">K</span></div>
+      </header>
+
+      <section id="view-overview" class="view">
+        <div class="welcome">
+          <div><p class="eyebrow light">WELCOME TO THE NEWSROOM</p><h2>Your stories. Your community. One connection.</h2><p>Manage K4N news coverage from one place.</p></div>
+          <button class="btn btn-white" id="new-article-top">＋ Write an article</button>
+        </div>
+        <div class="stats">
+          <article class="stat"><span>Total articles</span><strong id="stat-total">—</strong></article>
+          <article class="stat"><span>Published</span><strong id="stat-published">—</strong></article>
+          <article class="stat"><span>Drafts</span><strong id="stat-drafts">—</strong></article>
+        </div>
+        <div class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">CONTENT</p><h2>Recent articles</h2></div><button class="btn btn-outline" data-go="articles">View all</button></div>
+          <div id="recent-list" class="article-list"><p class="muted">Loading articles…</p></div>
+        </div>
+      </section>
+
+      <section id="view-articles" class="view hidden">
+        <div class="section-head"><div><p class="eyebrow">CONTENT LIBRARY</p><h2>Manage articles</h2></div><button class="btn btn-dark" id="new-article-list">＋ New article</button></div>
+        <div class="toolbar"><input id="article-search" type="search" placeholder="Search headlines…"><select id="status-filter"><option value="all">All statuses</option><option value="published">Published</option><option value="draft">Drafts</option></select></div>
+        <div class="panel"><div id="all-list" class="article-list"><p class="muted">Loading articles…</p></div></div>
+      </section>
+
+      <section id="view-editor" class="view hidden">
+        <div class="section-head"><div><p class="eyebrow">EDITORIAL DESK</p><h2 id="editor-heading">Write a new article</h2></div><button class="btn btn-outline" id="cancel-editor">← Back to articles</button></div>
+        <form id="article-form" class="editor-layout">
+          <div class="panel editor-main">
+            <label>Headline<input id="article-title" maxlength="180" required placeholder="Enter your news headline"></label>
+            <label>Short summary<textarea id="article-excerpt" rows="3" maxlength="300" placeholder="A short introduction shown on the homepage"></textarea></label>
+            <label>Article content</label>
+            <div id="editor-toolbar">
+              <span class="ql-formats"><select class="ql-header"><option selected></option><option value="2"></option><option value="3"></option></select></span>
+              <span class="ql-formats"><button class="ql-bold"></button><button class="ql-italic"></button><button class="ql-underline"></button></span>
+              <span class="ql-formats"><button class="ql-list" value="ordered"></button><button class="ql-list" value="bullet"></button></span>
+              <span class="ql-formats"><button class="ql-blockquote"></button><button class="ql-link"></button></span>
+              <span class="ql-formats"><button class="ql-clean"></button></span>
+            </div>
+            <div id="article-editor"></div>
+            <p class="hint">Tip: Use short paragraphs and clear subheadings to make stories easier to read.</p>
+          </div>
+          <div class="editor-side">
+            <div class="panel">
+              <h3>Publish settings</h3>
+              <label>Category<select id="article-category" required>
+                <option value="National">National</option><option value="Yap">Yap</option><option value="Chuuk">Chuuk</option><option value="Pohnpei">Pohnpei</option><option value="Kosrae">Kosrae</option><option value="Pacific">Pacific</option><option value="Community">Community</option><option value="Sports">Sports</option>
+              </select></label>
+              <label>Author<input id="article-author" maxlength="80" placeholder="K4N News Desk"></label>
+              <label class="check-row"><input id="article-featured" type="checkbox"> Feature on homepage</label>
+              <label>Publication status<select id="article-status"><option value="draft">Save as draft</option><option value="published">Publish now</option></select></label>
+              <button class="btn btn-dark full" type="submit" id="save-article">Save article</button>
+              <p id="save-message" class="message" aria-live="polite"></p>
+            </div>
+            <div class="panel">
+              <h3>Featured image</h3>
+              <div id="image-preview" class="image-preview">No image selected</div>
+              <input id="article-image-file" type="file" accept="image/png,image/jpeg,image/webp">
+              <p class="hint">JPG, PNG or WebP. Maximum 5 MB.</p>
+              <button class="btn btn-outline full" type="button" id="upload-image">Upload image</button>
+              <p id="image-message" class="message" aria-live="polite"></p>
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="admin-footer">K4N • One Nation with One Connection</footer>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
