@@ -277,11 +277,6 @@
       setMessage("site-settings-message", "Website settings saved successfully!", true);
     }
   };
-
-  const originalShowView = showView;
-  showView = (name) => {();
-    } else {
-      originalShowView(name);
     }
   };
 })();
