@@ -1,6 +1,249 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>K4N | Article</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f5f5f5;color:#111;font-family:Arial,sans-serif}header{background:#000;color:#fff;text-align:center;padding:24px}.logo{font:bold 34px Georgia,serif}header p{font-size:10px;letter-spacing:3px}main{max-width:850px;margin:35px auto;padding:0 20px}.back{color:#111;font-weight:bold;text-decoration:none;font-size:13px}.article{background:#fff;padding:30px;margin-top:20px}.meta{font-size:12px;color:#777;letter-spacing:1px}.article h1{font:bold 38px Georgia,serif;line-height:1.2}.excerpt{font-size:19px;color:#555;line-height:1.5}.hero{width:100%;max-height:440px;object-fit:cover}.body{font-size:17px;line-height:1.8}.body img{max-width:100%;height:auto}.body h2,.body h3{font-family:Georgia,serif}footer{text-align:center;background:#000;color:#fff;padding:25px;margin-top:45px}@media(max-width:600px){.article{padding:20px}.article h1{font-size:29px}}
-</style></head><body><header><div class="logo">KaMoRaLe 4 Network</div><p>ONE NATION WITH ONE CONNECTION</p></header><main><a class="back" href="index.html">← BACK TO K4N</a><article id="story" class="article">Loading story…</article></main><footer>K4N • One Nation with One Connection</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script><script src="config.js"></script><script>
-(async()=>{const el=document.getElementById("story"),id=new URLSearchParams(location.search).get("id"),c=window.K4N_CONFIG||{};if(!id){el.textContent="No article was selected.";return;}if(!c.SUPABASE_URL||c.SUPABASE_URL.includes("PASTE_")){el.textContent="K4N is being configured.";return;}const sb=window.supabase.createClient(c.SUPABASE_URL,c.SUPABASE_ANON_KEY);const {data,error}=await sb.from("articles").select("*").eq("id",id).eq("status","published").single();if(error||!data){el.textContent="This story could not be found.";return;}const clean=s=>DOMPurify.sanitize(s||"",{USE_PROFILES:{html:true}});document.title=data.title+" | K4N";el.innerHTML=`<div class="meta">${clean(data.category).toUpperCase()} · ${data.published_at?new Date(data.published_at).toLocaleDateString():""} · ${clean(data.author)}</div><h1>${clean(data.title)}</h1><p class="excerpt">${clean(data.excerpt)}</p>${data.image_url?`<img class="hero" src="${clean(data.image_url)}" alt="">`:""}<div class="body">${clean(data.content_html)}</div>`;})();
-</script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K4N | Article</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f5f5;color:#111;font-family:Arial,sans-serif}
+header{background:#000;color:white;text-align:center;padding:24px}
+.logo{font:bold 34px Georgia,serif}
+header p{font-size:10px;letter-spacing:3px}
+main{max-width:850px;margin:35px auto;padding:0 20px}
+.back{color:#111;font-weight:bold;text-decoration:none;font-size:13px}
+.article{background:white;padding:30px;margin-top:20px}
+.meta{font-size:12px;color:#777;letter-spacing:1px}
+.article h1{font:bold 38px Georgia,serif;line-height:1.2}
+.excerpt{font-size:19px;color:#555;line-height:1.5}
+.hero{width:100%;max-height:440px;object-fit:cover}
+.body{font-size:17px;line-height:1.8}
+.body img{max-width:100%;height:auto}
+.engagement{border-top:1px solid #ddd;margin-top:30px;padding-top:22px}
+.engagement h3{font-family:Georgia,serif}
+.reactions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.react{background:#f1f1f1;border:1px solid #ddd;border-radius:25px;padding:10px 13px;cursor:pointer;font-size:14px}
+.react.active{background:#111;color:white;border-color:#111}
+.react:disabled{opacity:.6}
+.share{background:#111;color:white;border:0;border-radius:7px;padding:12px 19px;font-weight:bold;cursor:pointer}
+#reaction-message,#share-message{font-size:13px;color:#666}
+footer{text-align:center;background:#000;color:white;padding:25px;margin-top:45px}
+@media(max-width:600px){
+.article{padding:20px}
+.article h1{font-size:29px}
+.react{padding:9px 10px}
+}
+</style>
+</head>
+
+<body>
+<header>
+<div class="logo">KaMoRaLe 4 Network</div>
+<p>ONE NATION WITH ONE CONNECTION</p>
+</header>
+
+<main>
+<a class="back" href="index.html">← BACK TO K4N</a>
+
+<article id="story" class="article">Loading story…</article>
+</main>
+
+<footer>K4N • One Nation with One Connection</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+<script src="config.js"></script>
+
+<script>
+(async()=>{
+const el=document.getElementById("story");
+const id=new URLSearchParams(location.search).get("id");
+const cfg=window.K4N_CONFIG||{};
+
+if(!id){el.textContent="No article selected.";return;}
+
+if(!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY){
+el.textContent="K4N is being configured.";
+return;
+}
+
+const sb=window.supabase.createClient(
+cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY
+);
+
+const clean=s=>DOMPurify.sanitize(s||"",{
+USE_PROFILES:{html:true}
+});
+
+const {data,error}=await sb.from("articles")
+.select("*")
+.eq("id",id)
+.eq("status","published")
+.single();
+
+if(error||!data){
+el.textContent="This story could not be found.";
+return;
+}
+
+let visitorId;
+
+try{
+visitorId=localStorage.getItem("k4n_visitor_id");
+
+if(!visitorId){
+visitorId=crypto.randomUUID();
+localStorage.setItem("k4n_visitor_id",visitorId);
+}
+}catch(e){
+el.textContent="Please enable browser storage to use reactions.";
+return;
+}
+
+document.title=data.title+" | K4N";
+
+el.innerHTML=`
+<div class="meta">
+${clean(data.category).toUpperCase()}
+· ${data.published_at?new Date(data.published_at).toLocaleDateString():""}
+· ${clean(data.author)}
+</div>
+
+<h1>${clean(data.title)}</h1>
+
+<p class="excerpt">${clean(data.excerpt)}</p>
+
+${data.image_url?
+`<img class="hero" src="${clean(data.image_url)}" alt="">`:""}
+
+<div class="body">${clean(data.content_html)}</div>
+
+<div class="engagement">
+<h3>What do you think about this story?</h3>
+
+<div class="reactions" id="reactions">
+<button class="react" data-reaction="like">👍 Like <span>0</span></button>
+<button class="react" data-reaction="love">❤️ Love <span>0</span></button>
+<button class="react" data-reaction="wow">😮 Wow <span>0</span></button>
+<button class="react" data-reaction="sad">😢 Sad <span>0</span></button>
+<button class="react" data-reaction="angry">😡 Angry <span>0</span></button>
+</div>
+
+<p id="reaction-message">Loading audience reactions…</p>
+
+<hr>
+
+<button class="share" id="share-button">
+↗ Share this story
+</button>
+<p id="share-message"></p>
+</div>
+`;
+
+const reactionMessage=document.getElementById("reaction-message");
+
+async function refreshReactions(){
+const {data,error}=await sb.rpc(
+"get_article_reaction_counts",
+{p_article_id:String(id)}
+);
+
+if(error){
+reactionMessage.textContent="Reactions temporarily unavailable.";
+console.error(error);
+return;
+}
+
+const totals={like:0,love:0,wow:0,sad:0,angry:0};
+
+(data||[]).forEach(row=>{
+totals[row.reaction]=Number(row.total);
+});
+
+document.querySelectorAll("[data-reaction]").forEach(btn=>{
+const key=btn.dataset.reaction;
+btn.querySelector("span").textContent=totals[key];
+});
+
+const saved=localStorage.getItem("k4n_reaction_"+id);
+
+document.querySelectorAll("[data-reaction]").forEach(btn=>{
+btn.classList.toggle("active",btn.dataset.reaction===saved);
+});
+
+const total=Object.values(totals).reduce((a,b)=>a+b,0);
+
+reactionMessage.textContent=total+
+(total===1?" audience reaction":" audience reactions")+
+(saved?" · Your reaction is saved.":"");
+}
+
+document.querySelectorAll("[data-reaction]").forEach(btn=>{
+btn.addEventListener("click",async()=>{
+const reaction=btn.dataset.reaction;
+
+document.querySelectorAll("[data-reaction]").forEach(b=>{
+b.disabled=true;
+});
+
+reactionMessage.textContent="Saving your reaction…";
+
+try{
+const {error}=await sb.rpc(
+"set_article_reaction",
+{
+p_article_id:String(id),
+p_visitor_id:visitorId,
+p_reaction:reaction
+}
+);
+
+if(error)throw error;
+
+localStorage.setItem("k4n_reaction_"+id,reaction);
+
+await refreshReactions();
+
+}catch(error){
+reactionMessage.textContent="Could not save reaction. Please try again.";
+console.error(error);
+}finally{
+document.querySelectorAll("[data-reaction]").forEach(b=>{
+b.disabled=false;
+});
+}
+});
+});
+
+document.getElementById("share-button").addEventListener("click",async()=>{
+const url=location.href;
+const shareData={
+title:data.title,
+text:data.excerpt||"Read this K4N story.",
+url:url
+};
+
+try{
+if(navigator.share){
+await navigator.share(shareData);
+}else{
+await navigator.clipboard.writeText(url);
+document.getElementById("share-message").textContent=
+"Article link copied! Share it with your friends.";
+}
+}catch(error){
+if(error.name!=="AbortError"){
+document.getElementById("share-message").textContent=
+"Sharing unavailable. Copy the article link from your browser.";
+}
+}
+});
+
+await refreshReactions();
+
+})();
+</script>
+</body>
+</html>
