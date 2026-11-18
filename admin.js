@@ -279,15 +279,7 @@
   };
 
   const originalShowView = showView;
-  showView = (name) => {
-    if (name === "website-builder") {
-      document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
-      $("view-website-builder").classList.remove("hidden");
-      document.querySelectorAll("[data-view]").forEach(a =>
-        a.classList.toggle("active", a.dataset.view === name)
-      );
-      $("page-heading").textContent = "Website Builder";
-      loadSiteSettings();
+  showView = (name) => {();
     } else {
       originalShowView(name);
     }
