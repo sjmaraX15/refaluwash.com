@@ -1,18 +1,26 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://sjmarax15.github.io/refaluwash.com/</loc>
+    <loc>https://refaluwash.com/</loc>
   </url>
+
   <url>
-    <loc>https://sjmarax15.github.io/refaluwash.com/latest.html</loc>
+    <loc>https://refaluwash.com/latest.html</loc>
   </url>
+
   <url>
-    <loc>https://sjmarax15.github.io/refaluwash.com/islands.html</loc>
+    <loc>https://refaluwash.com/islands.html</loc>
   </url>
+
   <url>
-    <loc>https://sjmarax15.github.io/refaluwash.com/culture.html</loc>
+    <loc>https://refaluwash.com/culture.html</loc>
   </url>
+
   <url>
-    <loc>https://sjmarax15.github.io/refaluwash.com/about.html</loc>
+    <loc>https://refaluwash.com/about.html</loc>
   </url>
+
 </urlset>
+
