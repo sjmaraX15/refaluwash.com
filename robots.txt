@@ -1,5 +1,9 @@
+
 User-agent: *
 Allow: /
-Disallow: /admin.html
 
-Sitemap: https://sjmarax15.github.io/refaluwash.com/sitemap.xml
+Disallow: /admin.html
+Disallow: /login.html
+
+Sitemap: https://refaluwash.com/sitemap.xml
+
