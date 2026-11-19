@@ -6,14 +6,15 @@ window.K4N_CONFIG = {
 // Load the matching helper for each page.
 (() => {
   const path = window.location.pathname;
-  const helper = path.endsWith('/admin.html')
-    ? 'website-builder-uploads.js'
+  const helpers = path.endsWith('/admin.html')
+    ? ['website-builder-uploads.js', 'admin-branding.js']
     : (path.endsWith('/article.html')
-      ? 'article-branding.js'
-      : (path.endsWith('/index.html') || path.endsWith('/') ? 'homepage-settings.js' : ''));
-  if (!helper) return;
-  const script = document.createElement('script');
-  script.src = helper;
-  script.defer = true;
-  document.head.appendChild(script);
+      ? ['article-branding.js']
+      : (path.endsWith('/index.html') || path.endsWith('/') ? ['homepage-settings.js'] : []));
+  helpers.forEach(helper => {
+    const script = document.createElement('script');
+    script.src = helper;
+    script.defer = true;
+    document.head.appendChild(script);
+  });
 })();
