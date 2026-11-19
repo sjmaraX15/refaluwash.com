@@ -17,4 +17,9 @@ window.K4N_CONFIG = {
     script.defer = true;
     document.head.appendChild(script);
   });
+
+  // When a custom logo is set, hide the fallback lettermark so both aren't shown.
+  const style = document.createElement('style');
+  style.textContent = '.brand.has-custom-logo .brand-mark{display:none!important}';
+  document.head.appendChild(style);
 })();
