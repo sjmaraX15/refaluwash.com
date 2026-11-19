@@ -33,12 +33,18 @@
     .home-featured-copy{padding:18px 20px 21px}.home-featured-copy .eyebrow{margin:0 0 8px;color:#52748a;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
     .home-featured-copy h2{margin:0 0 9px;font-size:clamp(20px,2.4vw,27px);line-height:1.18}.home-featured-copy p{margin:0;color:#526577;line-height:1.55}
     .home-featured-copy .home-meta{display:block;margin-top:13px;color:#718293;font-size:12px}
-    .island-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
-    .home-island-card{position:relative;display:flex;min-height:230px;overflow:hidden;align-items:flex-end;border-radius:16px;background:linear-gradient(145deg,#244c66,#10283f);color:#fff;text-decoration:none;box-shadow:0 10px 24px #10283f20}
+    .home-latest-card{display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid #e1e9f0;border-radius:14px;background:#fff;box-shadow:0 8px 24px #10283f12;transition:transform .2s,box-shadow .2s}
+    .home-latest-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px #10283f20}.home-latest-card>a{display:flex;height:100%;flex-direction:column;color:inherit;text-decoration:none}
+    .home-latest-card img,.home-latest-placeholder{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#dce7ef}
+    .home-latest-placeholder{background:linear-gradient(135deg,#dce7ef,#aec5d3)}.home-latest-card h3{margin:0;padding:14px 16px 17px;font-size:16px;line-height:1.35}
+    .island-carousel{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px}
+    .island-grid{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-inline:contain;scrollbar-width:thin;padding:4px 2px 14px}
+    .home-island-card{position:relative;display:flex;flex:0 0 clamp(230px,28vw,320px);min-height:230px;overflow:hidden;align-items:flex-end;scroll-snap-align:start;border-radius:16px;background:linear-gradient(145deg,#244c66,#10283f);color:#fff;text-decoration:none;box-shadow:0 10px 24px #10283f20}
     .home-island-card:before{position:absolute;inset:0;content:"";background-image:linear-gradient(0deg,#081b2be8 0%,#081b2b15 75%),var(--island-cover);background-position:center;background-size:cover;transition:transform .35s}
     .home-island-card:hover:before{transform:scale(1.05)}.home-island-card span{position:relative;padding:22px;font-size:22px;font-weight:800}.home-island-card small{display:block;margin-top:5px;font-size:12px;font-weight:500;opacity:.88}
+    .island-scroll-button{display:grid;width:42px;height:42px;place-items:center;border:0;border-radius:50%;background:#10283f;color:#fff;font-size:28px;line-height:1;cursor:pointer}.island-scroll-button:hover{background:#244c66}.island-scroll-button:focus-visible,.island-grid:focus-visible{outline:3px solid #3f8fba;outline-offset:3px}
     .home-empty{grid-column:1/-1;padding:20px;border:1px dashed #cbd8e2;border-radius:12px;color:#607386;background:#fff}
-    @media(max-width:600px){#dynamic-sections{gap:14px;padding-top:16px}.home-featured-card img{height:190px}.home-island-card{min-height:180px}}
+    @media(max-width:600px){#dynamic-sections{gap:14px;padding-top:16px}.home-featured-card img{height:190px}.home-island-card{min-height:190px;flex-basis:82vw}.island-carousel{gap:7px}.island-scroll-button{width:34px;height:34px;font-size:23px}}
   `;
   document.head.appendChild(style);
 
@@ -50,7 +56,7 @@
     const excerpt = esc(article.excerpt || 'Read the full story.');
     const date = esc(publishedDate(article));
     if (featured) return `<article class="home-featured-card"><a href="${href}">${image ? `<img src="${image}" alt="" loading="lazy">` : ''}<div class="home-featured-copy"><p class="eyebrow">${category}</p><h2>${title}</h2><p>${excerpt}</p><span class="home-meta">${date}</span></div></a></article>`;
-    return `<article class="story-card"><a href="${href}" class="story-card-link">${image ? `<img src="${image}" alt="" loading="lazy">` : ''}<div class="story-card-content"><p class="eyebrow">${category}</p><h3>${title}</h3><p>${excerpt}</p><span class="story-meta">${date}</span></div></a></article>`;
+    return `<article class="home-latest-card"><a href="${href}" aria-label="Read ${title}">${image ? `<img src="${image}" alt="" loading="lazy">` : '<span class="home-latest-placeholder" aria-hidden="true"></span>'}<h3>${title}</h3></a></article>`;
   }
 
   function coverFor(settings, key) {
@@ -93,6 +99,11 @@
       menu.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
       nav?.classList.toggle('is-open', !expanded);
     });
+    document.querySelectorAll('[data-island-scroll]').forEach(button => button.addEventListener('click', () => {
+      const host = document.getElementById('island-grid');
+      const direction = Number(button.dataset.islandScroll) || 1;
+      host?.scrollBy({ left: direction * Math.max(250, host.clientWidth * 0.8), behavior: 'smooth' });
+    }));
 
     if (!window.supabase?.createClient || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) {
       if (featuredHost) featuredHost.innerHTML = '<p class="home-empty">Stories are temporarily unavailable.</p>';

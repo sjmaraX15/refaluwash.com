@@ -7,7 +7,7 @@ window.K4N_CONFIG = {
 (() => {
   const path = window.location.pathname;
   const helpers = path.endsWith('/admin.html')
-    ? ['website-builder-uploads.js', 'admin-branding.js']
+    ? ['website-builder-uploads.js', 'admin-branding.js', 'admin-category.js']
     : (path.endsWith('/article.html')
       ? ['article-branding.js']
       : (path.endsWith('/index.html') || path.endsWith('/') ? ['homepage-settings.js'] : []));
