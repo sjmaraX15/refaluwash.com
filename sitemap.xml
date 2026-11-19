@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://refaluwash.com/</loc>
-  </url>
-  <url>
-    <loc>https://refaluwash.com/latest.html</loc>
-  </url>
-  <url>
-    <loc>https://refaluwash.com/islands.html</loc>
-  </url>
-  <url>
-    <loc>https://refaluwash.com/culture.html</loc>
-  </url>
-  <url>
-    <loc>https://refaluwash.com/about.html</loc>
-  </url>
+  <url><loc>https://refaluwash.com/</loc></url>
+  <url><loc>https://refaluwash.com/latest.html</loc></url>
+  <url><loc>https://refaluwash.com/islands.html</loc></url>
+  <url><loc>https://refaluwash.com/culture.html</loc></url>
+  <url><loc>https://refaluwash.com/about.html</loc></url>
 </urlset>
